@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import useSWR, { SWRConfig } from 'swr';
-import { Layout } from '../../components/layout/Layout';
 import { NextPageWithLayout } from '../../types/global';
 import { apiFetcher } from '../../services/apiFetcher';
 import { search } from '../../services/search';
@@ -34,8 +33,6 @@ const Library: NextPageWithLayout = ({ fallback }) => {
     </>
   );
 };
-
-Library.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
 
 export { getServerSideProps };
 export default Library;

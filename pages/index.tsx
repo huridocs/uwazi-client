@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import React, { ReactElement } from 'react';
-import { Layout } from '../components/layout/Layout';
+import React from 'react';
 import { NextPageWithLayout } from '../types/global';
 
 const Home: NextPageWithLayout = () => (
@@ -13,7 +12,5 @@ const Home: NextPageWithLayout = () => (
     <h1 className="text-3xl font-bold underline">Hello uwazi!</h1>
   </>
 );
-
-Home.getLayout = (page: ReactElement) => <Layout>{page}</Layout>;
 
 export default Home;
