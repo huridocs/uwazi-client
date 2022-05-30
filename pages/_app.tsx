@@ -4,7 +4,6 @@ import { AppPropsWithLayout } from '../types/global';
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? (page => page);
-
   return getLayout(<Component {...pageProps} />);
 };
 
