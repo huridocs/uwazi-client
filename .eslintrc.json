@@ -2,10 +2,25 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error"
+    "@typescript-eslint/no-explicit-any": "error",
+
+    "arrow-body-style": ["warn"],
+
+    //components
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+    //import
+    "import/no-default-export": ["warn"],
+
+    //functions
+    "no-return-await": "error",
+    "no-return-assign": ["warn"],
+    "no-param-reassign": ["warn"],
+    "prefer-arrow-callback": ["warn"]
   }
 }
