@@ -12,5 +12,4 @@ const Home: NextPage = () => (
     <h1 className="text-3xl font-bold underline">Hello uwazi!</h1>
   </>
 );
-
 export default Home;
