@@ -22,5 +22,13 @@
     "no-return-assign": ["warn"],
     "no-param-reassign": ["warn"],
     "prefer-arrow-callback": ["warn"]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["pages/**/*.tsx"],
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    }
+  ]
 }
