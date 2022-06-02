@@ -2,11 +2,11 @@ import React from 'react';
 import { Filters } from './Filters';
 import { SearchBar } from './SearchBar';
 
-const LibraryLayout = children => (
+const LibraryLayout = props => (
   <>
     <Filters />
     <SearchBar />
-    {children}
+    {props.children}
   </>
 );
 

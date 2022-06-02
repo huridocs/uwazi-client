@@ -1,16 +1,15 @@
 import React from 'react';
-import { LibraryLayout } from '../../modules/library/LibraryLayout';
+import { LibraryLayout } from 'modules/library/LibraryLayout';
+import { search } from 'services/search';
 
 const getServerSideProps = async context => {
-  const searchResults = api.search(context.query);
+  const {rows: searchResults } = await  search();
   return { props: { searchResults: searchResults } };
 };
 
-const Cards = ({ searchResults }) => (
-  <LibraryLayout>
-    <div className="cards">{searchResults}</div>
-  </LibraryLayout>
-);
+const Cards = ({ searchResults }) => (<LibraryLayout>
+    <div className="cards">{searchResults.map(result => <div key={result._id}>{ result.title }</div>)}</div>
+  </LibraryLayout>);
 
 export { getServerSideProps };
 export default Cards;
