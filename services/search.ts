@@ -1,6 +1,14 @@
 import { api } from 'api';
 
-const search = async () => {
+export interface EntityPlaceholder {
+  _id: string;
+  title: string;
+}
+interface SearchResults {
+  rows: EntityPlaceholder[];
+}
+
+const search = async (): Promise<SearchResults> => {
   const resp = await api.get('/search');
   return resp;
 }

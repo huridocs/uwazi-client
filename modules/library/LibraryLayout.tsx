@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Filters } from './Filters';
 import { SearchBar } from './SearchBar';
 
-const LibraryLayout = props => (
+const LibraryLayout = ({ children }: { children: ReactElement }) => (
   <>
     <Filters />
     <SearchBar />
-    {props.children}
+    {children}
   </>
 );
 
