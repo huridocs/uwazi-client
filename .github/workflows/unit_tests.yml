@@ -1,0 +1,32 @@
+name: Unit tests
+
+on:
+  push:
+    branches:
+      - production
+      - development
+      - staging
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  app_unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js 16.15.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.15.0'
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test --maxWorkers=2
