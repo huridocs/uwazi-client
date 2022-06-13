@@ -4,14 +4,19 @@
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
+
+  "plugins": ["jsx-a11y"],
+
   "env": {
     "browser": true,
     "node": true,
     "jest": true,
     "es6": true
   },
+
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
@@ -27,8 +32,10 @@
     "no-return-await": "error",
     "no-return-assign": ["warn"],
     "no-param-reassign": ["warn"],
-    "prefer-arrow-callback": ["warn"]
+    "prefer-arrow-callback": ["warn"],
+    "object-shorthand": ["warn", "always"]
   },
+
   "overrides": [
     {
       "files": ["pages/**/*.tsx"],
