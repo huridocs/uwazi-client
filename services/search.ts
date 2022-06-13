@@ -11,6 +11,6 @@ interface SearchResults {
 const search = async (): Promise<SearchResults> => {
   const resp = await api.get('/search');
   return resp;
-}
+};
 
 export { search };
