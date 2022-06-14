@@ -2,6 +2,7 @@ import React from 'react';
 import { LibraryLayout } from 'modules/library/LibraryLayout';
 import { search } from 'services/search';
 import { InferGetServerSidePropsType } from 'next';
+import { Card } from 'modules/card/Card';
 
 const getServerSideProps = async () => {
   console.log('Getting server side props!');
@@ -14,9 +15,7 @@ const Cards = ({ entities }: InferGetServerSidePropsType<typeof getServerSidePro
     <section className="cards">
       <h1>Cards</h1>
       {entities.map(entity => (
-        <article key={entity._id}>
-          <h2>{entity.title}</h2>
-        </article>
+        <Card entity={entity} key={entity._id} />
       ))}
     </section>
   </LibraryLayout>
