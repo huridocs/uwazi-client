@@ -1,9 +1,6 @@
 import { api } from 'api';
+import { EntityPlaceholder } from 'domains/Entity';
 
-export interface EntityPlaceholder {
-  _id: string;
-  title: string;
-}
 interface SearchResults {
   rows: EntityPlaceholder[];
 }
