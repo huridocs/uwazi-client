@@ -5,8 +5,8 @@ interface SearchResults {
   rows: EntityPlaceholder[];
 }
 
-const search = async (): Promise<SearchResults> => {
-  const resp = await api.get('/search');
+const search = async (domain: string): Promise<SearchResults> => {
+  const resp = await api.get(domain, 'search');
   return resp;
 };
 

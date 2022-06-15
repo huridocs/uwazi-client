@@ -1,12 +1,11 @@
 import React from 'react';
 import { LibraryLayout } from 'modules/library/LibraryLayout';
 import { search } from 'services/search';
-import { InferGetServerSidePropsType } from 'next';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { Card } from 'modules/card/Card';
 
-const getServerSideProps = async () => {
-  console.log('Getting server side props!');
-  const { rows: entities } = await search();
+const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const { rows: entities } = await search(context.req.headers.host || '');
   return { props: { entities } };
 };
 
