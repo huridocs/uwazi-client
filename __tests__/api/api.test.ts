@@ -1,3 +1,4 @@
+import * as config from 'next/config';
 import { api } from 'api';
 
 describe('api', () => {
@@ -17,8 +18,11 @@ describe('api', () => {
 
   describe('get', () => {
     it('should use the domain name', () => {
-      api.get('/search');
-      expect(global.fetch).toHaveBeenCalledWith('/api/search', {
+      jest
+        .spyOn(config, 'default')
+        .mockReturnValue({ publicRuntimeConfig: { NODE_ENV: 'production' } });
+      api.get('localhost:8080', 'search');
+      expect(global.fetch).toHaveBeenCalledWith('https://localhost:8080/api/search', {
         method: 'GET',
       });
     });
@@ -26,8 +30,11 @@ describe('api', () => {
 
   describe('development enviroment', () => {
     it('should append the port', () => {
-      api.get('/search');
-      expect(global.fetch).toHaveBeenCalledWith(':3000/api/search', {
+      jest
+        .spyOn(config, 'default')
+        .mockReturnValue({ publicRuntimeConfig: { NODE_ENV: 'development' } });
+      api.get('localhost', 'search');
+      expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000/api/search', {
         method: 'GET',
       });
     });
