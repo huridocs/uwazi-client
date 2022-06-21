@@ -1,7 +1,7 @@
 import React from 'react';
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { LibraryLayout } from 'modules/library/LibraryLayout';
 import { search } from 'services/search';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { Card } from 'modules/card/Card';
 
 const getServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -12,7 +12,7 @@ const getServerSideProps = async (context: GetServerSidePropsContext) => {
 const Cards = ({ entities }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
   <LibraryLayout>
     <section className="cards">
-      <h1>Cards</h1>
+      <h1 className="text-3xl font-bold underline">Cards</h1>
       {entities.map(entity => (
         <Card entity={entity} key={entity._id} />
       ))}
