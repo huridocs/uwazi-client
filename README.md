@@ -1,34 +1,61 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- @format -->
 
-## Getting Started
+![Uwazi Logo](https://uwazi.io/assets/16369950628097kcvfquj74a.svg)
 
-First, run the development server:
+Uwazi is a flexible database application to capture and organise collections of information with a particular focus on document management. HURIDOCS started Uwazi and is supporting dozens of human rights organisations globally to use the tool.
 
-```bash
-npm run dev
-# or
-yarn dev
+[Uwazi](https://www.uwazi.io/) | [HURIDOCS](https://huridocs.org/)
+
+# Dependencies
+
+Before anything else you will need to install the client's dependencies:
+
+- **NodeJs 16.14.2** For ease of update, use nvm: https://github.com/creationix/nvm.
+- **Yarn** https://yarnpkg.com/en/docs/install.
+- **UWAZI** https://github.com/huridocs/uwazi.
+
+# Development
+
+If you want to use the latest development code:
+
+```
+$ git clone https://github.com/huridocs/uwazi-client
+$ cd uwazi-client
+$ yarn install
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development Run
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+First you need to have UWAZI running on localhost:3000.
+Then you can start UWAZI-client with:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```
+$ yarn dev
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+This will launch a NextJS server on localhost:3001.
 
-## Learn More
+## Testing
 
-To learn more about Next.js, take a look at the following resources:
+### Unit and Integration tests
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+We test using the JEST framework with Testing Library. To run the unit and integration tests, execute:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+$ yarn test
+```
 
-## Deploy on Vercel
+This will run the entire test suite.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### End to End (e2e)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+End to end tests requires both UWAZI-client and UWAZI to be running.
+
+Test are runned using Cypress:
+
+```
+$ yarn cypress
+```
+
+This will install the necessary files for the Cypress client and open testing UI.
