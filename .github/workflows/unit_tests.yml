@@ -31,7 +31,7 @@ jobs:
       - name: Run coverage
         run: yarn coverage
       - name: Upload coverage
-        uses: paambaati/codeclimate-action@v2.2.4
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: 227d10f964223078e8130ee0e36a2e8dd189848ce70bec73ff884715ce543efb
         with:
