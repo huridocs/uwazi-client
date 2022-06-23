@@ -9,6 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "cypress": "cypress open",
+    "coverage": "rm -rf ./node_modules/.cache && rm -rf coverage/ && rm -rf .nyc_output/ && nyc jest",
     "check-types:nextjs": "tsc --noEmit --pretty",
     "check-types:cypress": "tsc --noEmit --pretty --project cypress/tsconfig.json",
     "check-types": "yarn check-types:nextjs ; yarn check-types:cypress"
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "autoprefixer": "^10.4.7",
     "cypress": "^10.1.0",
+    "cypress-axe": "^1.0.0",
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^8.5.0",
@@ -36,6 +38,7 @@
     "eslint-plugin-react": "^7.30.0",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
+    "nyc": "^15.1.0",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.3",
