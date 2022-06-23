@@ -28,9 +28,12 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: install dependencies
         run: yarn install
-      - name: Run tests and coverage
+      - name: Run coverage
+        run: yarn coverage
+      - name: Upload coverage
         uses: paambaati/codeclimate-action@v2.2.4
         env:
           CC_TEST_REPORTER_ID: 227d10f964223078e8130ee0e36a2e8dd189848ce70bec73ff884715ce543efb
         with:
-          coverageCommand: yarn coverage --maxWorkers=2
+          debug: true
+        if: ${{ github.event_name == 'push' }}
