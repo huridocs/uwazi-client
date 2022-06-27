@@ -4,6 +4,10 @@ const nextConfig = {
   publicRuntimeConfig: {
     NODE_ENV: process.env.NODE_ENV,
   },
+  i18n: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'en',
+  },
 };
 
 module.exports = nextConfig;
