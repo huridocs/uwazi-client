@@ -16,7 +16,7 @@ const CardView = ({ entity }: CardViewProps) => (
         {entity.metadata.map(property => (
           <React.Fragment key={property.name}>
             <dt>{property.name}:</dt>
-            <dd>{property.values && property.values.length ? property.values[0].value : ''}</dd>
+            <dd>{property.values[0]?.value}</dd>
           </React.Fragment>
         ))}
       </dl>

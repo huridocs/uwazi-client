@@ -29,7 +29,7 @@ export interface Property {
   property: string;
   type: PropertyTypes;
   featured: boolean;
-  values: PropertyValue[];
+  values: PropertyValue[] | [];
 }
 
 export interface Entity extends Omit<RawEntity, 'template' | 'metadata'> {
