@@ -1,5 +1,5 @@
 import React from 'react';
-import { Entity, ProcessedEntity } from 'domains/Entity';
+import { Entity } from 'domains/Entity';
 import { CardView } from './Card.view';
 
 type CardProps = {
@@ -7,14 +7,11 @@ type CardProps = {
 };
 
 const formatMetadata = (metadata: Entity['metadata']) =>
-  Object.values(metadata)
-    .filter(property => property.showInCards && property.values[0].value)
-    .map(property => ({ name: property.name, value: property.values[0].value as string | number }));
+  metadata.filter(property => property.featured);
 
 const Card = ({ entity }: CardProps) => {
-  const processedEntity: ProcessedEntity = {
-    title: entity.title,
-    template: entity.template,
+  const processedEntity: Entity = {
+    ...entity,
     metadata: formatMetadata(entity.metadata),
   };
 

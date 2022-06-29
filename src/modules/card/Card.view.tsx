@@ -1,8 +1,8 @@
 import React from 'react';
-import { ProcessedEntity } from 'domains/Entity';
+import { Entity } from 'domains/Entity';
 
 type CardViewProps = {
-  entity: ProcessedEntity;
+  entity: Entity;
 };
 
 const CardView = ({ entity }: CardViewProps) => (
@@ -14,10 +14,10 @@ const CardView = ({ entity }: CardViewProps) => (
     <section>
       <dl>
         {entity.metadata.map(property => (
-          <>
+          <React.Fragment key={property.name}>
             <dt>{property.name}:</dt>
-            <dd>{property.value}</dd>
-          </>
+            <dd>{property.values && property.values.length ? property.values[0].value : ''}</dd>
+          </React.Fragment>
         ))}
       </dl>
     </section>

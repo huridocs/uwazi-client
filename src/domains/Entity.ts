@@ -1,41 +1,42 @@
+import { PropertyTypes } from './Template';
+
 export interface EntityPlaceholder {
   _id: string;
   title: string;
 }
+
 export type PropertyValue = {
   value?: string | number;
   key?: string;
 };
 
-export interface Entity {
+export interface RawEntity {
   _id: string;
   sharedId: string;
   title: string;
   creationDate: number;
-  template: {
-    _id: string;
-    color: string;
-    name: string;
-  };
+  template: string;
   metadata: {
     [propertyName: string]: {
-      name: string;
-      type: 'text' | 'numeric' | 'select' | 'date';
-      showInCards: boolean;
-      values: PropertyValue[];
-    };
+      label?: string;
+      value: string;
+    }[];
   };
 }
 
-export type ProcessedEntity = {
-  title: string;
+export interface Property {
+  name: string;
+  property: string;
+  type: PropertyTypes;
+  featured: boolean;
+  values: PropertyValue[];
+}
+
+export interface Entity extends Omit<RawEntity, 'template' | 'metadata'> {
   template: {
     _id: string;
     color: string;
     name: string;
   };
-  metadata: {
-    name: string;
-    value: string | number;
-  }[];
-};
+  metadata: Property[];
+}
