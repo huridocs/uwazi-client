@@ -4,6 +4,9 @@ const nextConfig = {
   publicRuntimeConfig: {
     NODE_ENV: process.env.NODE_ENV,
   },
+  experimental: {
+    newNextLinkBehavior: true,
+  },
 };
 
 module.exports = nextConfig;

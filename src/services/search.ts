@@ -1,8 +1,8 @@
 import { api } from 'api';
-import { EntityPlaceholder } from 'domains/Entity';
+import { Entity } from 'domains/Entity';
 
 interface SearchResults {
-  rows: EntityPlaceholder[];
+  rows: Entity[];
 }
 
 const search = async (domain: string): Promise<SearchResults> => {
