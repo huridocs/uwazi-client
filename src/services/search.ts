@@ -6,45 +6,53 @@ interface SearchResults {
   rows: Entity[];
 }
 
+const populateTemplate = (template: Template) => ({
+  _id: template?._id,
+  name: template?.name,
+  color: template?.color || '#f00',
+});
+
+const formatMetadata = (template: Template, entity: RawEntity) =>
+  (template?.properties || []).reduce((newMetadata, propertyData) => {
+    if (entity.metadata[propertyData.name]) {
+      const data = entity.metadata[propertyData.name];
+
+      const values = data.map(value => {
+        const newValue: PropertyValue = { value: value.value };
+        if (['select', 'multiselect'].includes(propertyData.type)) {
+          newValue.value = value.label;
+          newValue.key = value.value;
+        }
+        return newValue;
+      });
+
+      newMetadata.push({
+        name: propertyData.label,
+        property: propertyData.name,
+        type: propertyData.type,
+        featured: Boolean(propertyData.showInCard),
+        values,
+      });
+    }
+
+    return newMetadata;
+  }, [] as Property[]);
+
 const populateEntities = async (rawEntities: RawEntity[], domain: string) => {
-  // This needs to be chaced somehow
   const templates: Template[] = (await api.get(domain, 'templates')).rows;
 
-  const rows = rawEntities.map(rawEntity => {
-    const currentTemplate = templates.find(template => template._id === rawEntity.template);
-    const template = {
-      _id: currentTemplate?._id,
-      name: currentTemplate?.name,
-      color: currentTemplate?.color || '#f00',
-    };
-
-    const metadata = (currentTemplate?.properties || []).reduce((newMetadata, propertyData) => {
-      if (rawEntity.metadata[propertyData.name]) {
-        const rawData = rawEntity.metadata[propertyData.name];
-
-        const values = rawData.map(rawValue => {
-          const newValue: PropertyValue = { value: rawValue.value };
-          if (['select', 'multiselect'].includes(propertyData.type)) {
-            newValue.value = rawValue.label;
-            newValue.key = rawValue.value;
-          }
-          return newValue;
-        });
-
-        newMetadata.push({
-          name: propertyData.label,
-          property: propertyData.name,
-          type: propertyData.type,
-          featured: Boolean(propertyData.showInCard),
-          values,
-        });
+  const rows = rawEntities
+    .map(rawEntity => {
+      const currentTemplate = templates.find(template => template._id === rawEntity.template);
+      if (currentTemplate) {
+        const template = populateTemplate(currentTemplate);
+        const metadata = formatMetadata(currentTemplate, rawEntity);
+        return { ...rawEntity, template, metadata } as Entity;
       }
 
-      return newMetadata;
-    }, [] as Property[]);
-
-    return { ...rawEntity, template, metadata } as Entity;
-  });
+      return null;
+    })
+    .filter(row => row);
 
   return rows;
 };

@@ -35,8 +35,8 @@ export interface Property {
 export interface Entity extends Omit<RawEntity, 'template' | 'metadata'> {
   template: {
     _id: string;
-    color: string;
     name: string;
+    color: string;
   };
   metadata: Property[];
 }

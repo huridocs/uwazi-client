@@ -71,6 +71,14 @@ const backendResultsFixtures: Fixtures = {
         prop2select: [{ label: 'Value 2', value: 'thesaurusValue2' }],
       },
     },
+    {
+      _id: 'entityId4',
+      sharedId: 'sharedId4',
+      title: 'Entity 4 with wrong template',
+      template: 'templateIdWrong',
+      creationDate: 1235,
+      metadata: {},
+    },
   ],
 };
 
@@ -139,7 +147,6 @@ describe('search', () => {
   beforeEach(() => {
     const apiGetSpy = jest.spyOn(api, 'get');
     apiGetSpy.mockImplementation(async (_domain, url) => {
-      console.log('called with:', url);
       switch (url) {
         case 'search':
           return { rows: backendResultsFixtures.entities };
