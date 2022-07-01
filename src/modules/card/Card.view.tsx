@@ -7,12 +7,12 @@ type CardViewProps = {
 
 const CardView = ({ entity }: CardViewProps) => (
   <article
-    className={`card template-${entity.template._id} border border-neutral-200 rounded-md p-4`}
+    className={`card template-${entity.template._id} flex flex-col border border-neutral-300 rounded-md p-4 bg-white hover:border-neutral-500 hover:shadow-md`}
   >
     <header className="text-sm font-bold text-neutral-500 mb-2">
       <p className="template">{entity.template.name}</p>
     </header>
-    <h2 className="title text-sm font-bold mb-4">{entity.title}</h2>
+    <h2 className="title flex-1 text-sm font-bold mb-4">{entity.title}</h2>
     <section className="metadata-section">
       <dl className="text-sm text-neutral-300">
         {entity.metadata.map(property => (

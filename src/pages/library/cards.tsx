@@ -12,7 +12,7 @@ const getServerSideProps = async (context: GetServerSidePropsContext) => {
 const Cards = ({ entities }: InferGetServerSidePropsType<typeof getServerSideProps>) => (
   <LibraryLayout>
     <>
-      <section className="cards grid grid-cols-1 m-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <section className="cards grid grid-cols-1 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {entities.map(entity => (
           <Card entity={entity} key={entity._id} />
         ))}
