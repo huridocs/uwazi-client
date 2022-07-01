@@ -6,7 +6,7 @@ import { entities } from '../../commonFixtures/entities';
 describe('Card', () => {
   it('should allow users to see the title', () => {
     render(<Card entity={entities[0]} />);
-    const [title] = screen.queryAllByText('Entity 1');
+    const [title] = screen.queryAllByText('Entity 1 Title');
     expect(title).toBeInTheDocument();
   });
 });
