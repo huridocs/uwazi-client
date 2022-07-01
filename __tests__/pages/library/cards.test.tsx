@@ -1,14 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Cards from '../../../src/pages/library/cards';
+import Cards from 'pages/library/cards';
+import { entities } from '../../commonFixtures/entities';
 
 describe('Cards page', () => {
-  const entities = [
-    { _id: 'entity1', title: 'Entity 1' },
-    { _id: 'entity2', title: 'Entity 2' },
-    { _id: 'entity3', title: 'Entity 3' },
-  ];
-
   beforeEach(() => {
     render(<Cards entities={entities} />);
   });

@@ -1,14 +1,21 @@
 import React from 'react';
-import { EntityPlaceholder } from 'domains/Entity';
+import { Entity } from 'domains/Entity';
+import { CardView } from './Card.view';
 
 type CardProps = {
-  entity: EntityPlaceholder;
+  entity: Entity;
 };
 
-const Card = ({ entity }: CardProps) => (
-  <article>
-    <h2>{entity.title}</h2>
-  </article>
-);
+const formatMetadata = (metadata: Entity['metadata']) =>
+  metadata.filter(property => property.featured);
+
+const Card = ({ entity }: CardProps) => {
+  const processedEntity: Entity = {
+    ...entity,
+    metadata: formatMetadata(entity.metadata),
+  };
+
+  return <CardView entity={processedEntity} />;
+};
 
 export { Card };

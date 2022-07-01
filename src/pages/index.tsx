@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const Home: NextPage = () => (
   <>
@@ -10,6 +11,7 @@ const Home: NextPage = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <h1 className="text-3xl font-bold underline">Hello uwazi!</h1>
+    <Link href="/library/cards">Cards</Link>
   </>
 );
 export default Home;
