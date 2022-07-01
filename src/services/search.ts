@@ -1,6 +1,7 @@
 import { api } from 'api';
-import { Template } from 'domains/Template';
-import { Entity, Property, PropertyValue, RawEntity } from 'domains/Entity';
+import { PropertyTypes, Template } from 'domains/Template';
+import { Entity, Property, PropertyValue } from 'domains/Entity';
+import { Entity as BackendEntity, Property as BackendProperty } from 'domains/BackendEntity';
 
 interface SearchResults {
   rows: Entity[];
@@ -12,19 +13,21 @@ const populateTemplate = (template: Template) => ({
   color: template?.color || '#f00',
 });
 
-const formatMetadata = (template: Template, entity: RawEntity) =>
+const sanitizeLabelToValue = (type: PropertyTypes, data: BackendProperty[]) =>
+  data.map(value => {
+    const newValue: PropertyValue = { value: value.value };
+    if (['select', 'multiselect'].includes(type)) {
+      newValue.value = value.label;
+      newValue.key = value.value;
+    }
+    return newValue;
+  });
+
+const formatMetadata = (template: Template, entity: BackendEntity) =>
   (template?.properties || []).reduce((newMetadata, propertyData) => {
     if (entity.metadata[propertyData.name]) {
       const data = entity.metadata[propertyData.name];
-
-      const values = data.map(value => {
-        const newValue: PropertyValue = { value: value.value };
-        if (['select', 'multiselect'].includes(propertyData.type)) {
-          newValue.value = value.label;
-          newValue.key = value.value;
-        }
-        return newValue;
-      });
+      const values = sanitizeLabelToValue(propertyData.type, data);
 
       newMetadata.push({
         name: propertyData.label,
@@ -38,7 +41,7 @@ const formatMetadata = (template: Template, entity: RawEntity) =>
     return newMetadata;
   }, [] as Property[]);
 
-const populateEntities = async (rawEntities: RawEntity[], domain: string) => {
+const populateEntities = async (rawEntities: BackendEntity[], domain: string) => {
   const templates: Template[] = (await api.get(domain, 'templates')).rows;
 
   const rows = rawEntities

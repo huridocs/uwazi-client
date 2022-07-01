@@ -1,28 +1,10 @@
 import { PropertyTypes } from './Template';
-
-export interface EntityPlaceholder {
-  _id: string;
-  title: string;
-}
+import { Entity as BackendEntity } from './BackendEntity';
 
 export type PropertyValue = {
   value?: string | number;
   key?: string;
 };
-
-export interface RawEntity {
-  _id: string;
-  sharedId: string;
-  title: string;
-  creationDate: number;
-  template: string;
-  metadata: {
-    [propertyName: string]: {
-      label?: string;
-      value: string;
-    }[];
-  };
-}
 
 export interface Property {
   name: string;
@@ -32,7 +14,7 @@ export interface Property {
   values: PropertyValue[] | [];
 }
 
-export interface Entity extends Omit<RawEntity, 'template' | 'metadata'> {
+export interface Entity extends Omit<BackendEntity, 'template' | 'metadata'> {
   template: {
     _id: string;
     name: string;

@@ -1,9 +1,9 @@
-import { RawEntity } from 'domains/Entity';
+import { Entity } from 'domains/BackendEntity';
 import { Template } from 'domains/Template';
 
 interface Fixtures {
   templates: Template[];
-  entities: RawEntity[];
+  entities: Entity[];
 }
 
 const backendFixtures: Fixtures = {
