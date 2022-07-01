@@ -9,10 +9,10 @@ const CardView = ({ entity }: CardViewProps) => (
   <article
     className={`card template-${entity.template._id} border border-neutral-200 rounded-md p-4`}
   >
-    <header className="text-sm font-bold mb-2">
+    <header className="text-sm font-bold text-neutral-500 mb-2">
       <p className="template">{entity.template.name}</p>
     </header>
-    <h2 className="title font-bold mb-4">{entity.title}</h2>
+    <h2 className="title text-sm font-bold mb-4">{entity.title}</h2>
     <section className="metadata-section">
       <dl className="text-sm text-neutral-300">
         {entity.metadata.map(property => (
