@@ -17,7 +17,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-//user should be redirected to previous unauthorized page after a successful login
 //user should be able to recover password
 //should allow users to see all the app links
 
@@ -56,9 +55,7 @@ describe('login', () => {
     await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
     const loginButton = screen.getByText('Login');
 
-    jest
-      .spyOn(userService, 'login')
-      .mockRejectedValueOnce({ ok: false, error: { code: 'invalid_login' } });
+    jest.spyOn(userService, 'login').mockRejectedValueOnce({ error: { code: 'invalid_login' } });
 
     await userEvent.click(loginButton);
     expect(screen.getByText('Login failed')).toBeInTheDocument();

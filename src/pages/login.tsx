@@ -23,7 +23,7 @@ const Login: NextPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = async ({ username, password }) => {
     try {
       const response = await login(username, password);
-      if (response.ok) {
+      if (!response.error) {
         router.push(router.query.from || '/library/cards');
       }
     } catch (e) {
