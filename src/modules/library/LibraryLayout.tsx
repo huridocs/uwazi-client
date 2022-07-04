@@ -3,11 +3,13 @@ import { Filters } from './Filters';
 import { SearchBar } from './SearchBar';
 
 const LibraryLayout = ({ children }: { children: ReactElement }) => (
-  <main>
+  <div className="uwazi-container flex">
     <Filters />
-    <SearchBar />
-    {children}
-  </main>
+    <main className="">
+      <SearchBar />
+      {children}
+    </main>
+  </div>
 );
 
 export { LibraryLayout };
