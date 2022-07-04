@@ -15,6 +15,7 @@ jest.mock('next/router', () => ({
 describe('login', () => {
   //user should login
   //user should be redirected to home page after a successful login
+  //user should be redirected to previous unauthorized page after a successful login
   //user should receive an error message if login fails
   //user should be able to recover password
   //should allow users to see all the app links

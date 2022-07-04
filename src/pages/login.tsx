@@ -5,11 +5,7 @@ import { useForm } from 'react-hook-form';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit } = useForm();
 
   const onSubmit = () => {
     router.push('/library/cards');
