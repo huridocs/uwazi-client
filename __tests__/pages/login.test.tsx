@@ -5,12 +5,15 @@ import Login from 'pages/login';
 import * as userService from 'services/user';
 
 const mockPush = jest.fn();
+const queryParams = { from: '' };
+
 jest.mock('next/router', () => ({
   useRouter: () => ({
     ...jest.requireActual('next/router'),
     route: '/login',
     pathname: '/login',
     push: mockPush,
+    query: queryParams,
   }),
 }));
 
@@ -55,9 +58,20 @@ describe('login', () => {
 
     jest
       .spyOn(userService, 'login')
-      .mockRejectedValue({ ok: false, error: { code: 'invalid_login' } });
+      .mockRejectedValueOnce({ ok: false, error: { code: 'invalid_login' } });
 
     await userEvent.click(loginButton);
     expect(screen.getByText('Login failed')).toBeInTheDocument();
+  });
+
+  it('should redirect users to the previous unauthorized page after a successful login', async () => {
+    queryParams.from = '/settings/account';
+    await userEvent.type(screen.getByLabelText('Username'), 'admin');
+    await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
+    const loginButton = screen.getByText('Login');
+    await userEvent.click(loginButton);
+
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith('/settings/account');
   });
 });

@@ -24,7 +24,7 @@ const Login: NextPage = () => {
     try {
       const response = await login(username, password);
       if (response.ok) {
-        router.push('/library/cards');
+        router.push(router.query.from || '/library/cards');
       }
     } catch (e) {
       setLoginError(e);
