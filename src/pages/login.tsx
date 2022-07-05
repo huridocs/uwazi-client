@@ -51,29 +51,44 @@ const Login: NextPage = () => {
               objectFit="cover"
             />
           </div>
-          <div className="">
-            <Link target="_blank" href="https://uwazi.io/">
+          <div className="links bg-rose-700 flex justify-center gap-8">
+            <Link className="text-white underline my-3" target="_blank" href="https://uwazi.io/">
               Website
             </Link>
-            <Link target="_blank" href="https://uwazi.readthedocs.io">
+            <Link
+              className="text-white underline my-3"
+              target="_blank"
+              href="https://uwazi.readthedocs.io"
+            >
               Documentation
             </Link>
-            <Link target="_blank" href="https://github.com/huridocs">
+            <Link
+              className="text-white underline my-3"
+              target="_blank"
+              href="https://github.com/huridocs"
+            >
               Contribute
             </Link>
-            <Link target="_blank" href="https://twitter.com/HURIDOCS">
+            <Link
+              className="text-white underline my-3"
+              target="_blank"
+              href="https://twitter.com/HURIDOCS"
+            >
               Twitter
             </Link>
           </div>
         </div>
-        <div className="form w-1/2">
-          <div className="title flex">
+        <div className="forms-container flex flex-col w-full md:w-1/2 my-3">
+          <div className="title flex justify-center items-center gap-1">
             <Image src="/uwazi-icon.svg" alt="UWAZI logo" height="60px" width="44px" />
             <h1 className="text-xl font-bold text-rose-700">UWAZI</h1>
           </div>
-          <div className="fields flex flex-col p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md">
+          <div className="forms flex flex-col grow items-center justify-center">
             {!recoveringPassword && (
-              <form onSubmit={handleSubmit(onSubmitLogin)}>
+              <form
+                onSubmit={handleSubmit(onSubmitLogin)}
+                className="p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md"
+              >
                 <>
                   <h2 className="mb-4 font-bold text-center">Welcome</h2>
                   <label htmlFor="username" className="username flex flex-col">
@@ -120,7 +135,10 @@ const Login: NextPage = () => {
               </form>
             )}
             {recoveringPassword && !recoveredPassword && (
-              <form onSubmit={handleSubmit(onSubmitRecovery)}>
+              <form
+                onSubmit={handleSubmit(onSubmitRecovery)}
+                className="p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md"
+              >
                 <label htmlFor="email" className="email flex flex-col">
                   Email
                   <input
@@ -142,7 +160,7 @@ const Login: NextPage = () => {
               </form>
             )}
             {recoveredPassword && (
-              <>
+              <div className="p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md">
                 <p>Check your email for password recover</p>
                 <button
                   type="button"
@@ -153,9 +171,10 @@ const Login: NextPage = () => {
                 >
                   Go back to Login
                 </button>
-              </>
+              </div>
             )}
           </div>
+          <p className="text-center">UWAZI v2.0</p>
         </div>
       </div>
     </section>
