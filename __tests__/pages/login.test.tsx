@@ -3,7 +3,7 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from 'pages/login';
 import * as userService from 'services/user';
-import { login } from 'services/user';
+import { login, recoverPassword } from 'services/user';
 
 const mockPush = jest.fn();
 const queryParams = { from: '' };
@@ -17,9 +17,6 @@ jest.mock('next/router', () => ({
     query: queryParams,
   }),
 }));
-
-//user should be able to recover password
-//should allow users to see all the app links
 
 describe('login', () => {
   beforeEach(() => {
@@ -54,7 +51,9 @@ describe('login', () => {
   });
 
   it('should show an error message when login fails', async () => {
-    jest.spyOn(userService, 'login').mockRejectedValueOnce({ error: { code: 'invalid_login' } });
+    jest
+      .spyOn(userService, 'login')
+      .mockResolvedValueOnce({ data: '', error: { code: 'invalid_login' } });
 
     await act(async () => {
       await userEvent.type(screen.getByLabelText('Username'), 'admin');
@@ -91,5 +90,38 @@ describe('login', () => {
     });
 
     expect(login).toBeCalledWith('admin', 'password', true);
+  });
+
+  it('should allow users to recover password', async () => {
+    jest.spyOn(userService, 'recoverPassword').mockResolvedValueOnce({ data: {} });
+
+    await userEvent.click(screen.getByText('Forgot password?'));
+    await userEvent.type(screen.getByLabelText('Email'), 'admin@huridocs.org');
+
+    await act(async () => {
+      await userEvent.click(screen.getByText('Send recovery email'));
+    });
+
+    expect(recoverPassword).toBeCalledWith('admin@huridocs.org');
+    expect(screen.queryByText('Send recovery email')).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByText('Go back to Login'));
+
+    expect(screen.getByText('Login')).toBeInTheDocument();
+  });
+
+  it('should allow user to click on the support links', async () => {
+    expect((screen.getByText('Website') as HTMLElement).getAttribute('href')).toEqual(
+      'https://uwazi.io/'
+    );
+    expect((screen.getByText('Documentation') as HTMLElement).getAttribute('href')).toEqual(
+      'https://uwazi.readthedocs.io'
+    );
+    expect((screen.getByText('Contribute') as HTMLElement).getAttribute('href')).toEqual(
+      'https://github.com/huridocs'
+    );
+    expect((screen.getByText('Twitter') as HTMLElement).getAttribute('href')).toEqual(
+      'https://twitter.com/HURIDOCS'
+    );
   });
 });
