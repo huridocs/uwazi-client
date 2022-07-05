@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from 'pages/login';
 import * as userService from 'services/user';
+import { login } from 'services/user';
+import { act } from 'react-dom/test-utils';
 
 const mockPush = jest.fn();
 const queryParams = { from: '' };
@@ -29,9 +31,7 @@ describe('login', () => {
   it('should allow users to login', async () => {
     await userEvent.type(screen.getByLabelText('Username'), 'admin');
     await userEvent.type(screen.getByLabelText('Password'), 'password');
-    const loginButton = screen.getByText('Login');
-    await userEvent.click(loginButton);
-
+    await userEvent.click(screen.getByText('Login'));
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith('/library/cards');
   });
@@ -43,8 +43,9 @@ describe('login', () => {
   `('should not login when there is an error', async ({ username, password, errorMessage }) => {
     username && (await userEvent.type(screen.getByLabelText('Username'), username));
     password && (await userEvent.type(screen.getByLabelText('Password'), password));
-    const loginButton = screen.getByText('Login');
-    await userEvent.click(loginButton);
+    await act(async () => {
+      await userEvent.click(screen.getByText('Login'));
+    });
 
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
     expect(mockPush).not.toBeCalled();
@@ -53,11 +54,12 @@ describe('login', () => {
   it('should show an error message when login fails', async () => {
     await userEvent.type(screen.getByLabelText('Username'), 'admin');
     await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
-    const loginButton = screen.getByText('Login');
-
+    await userEvent.click(screen.getByLabelText('Remember me'));
     jest.spyOn(userService, 'login').mockRejectedValueOnce({ error: { code: 'invalid_login' } });
 
-    await userEvent.click(loginButton);
+    await act(async () => {
+      await userEvent.click(screen.getByText('Login'));
+    });
     expect(screen.getByText('Login failed')).toBeInTheDocument();
   });
 
@@ -70,5 +72,15 @@ describe('login', () => {
 
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith('/settings/account');
+  });
+
+  it('should allow to remember credentials', async () => {
+    await userEvent.type(screen.getByLabelText('Username'), 'admin');
+    await userEvent.type(screen.getByLabelText('Password'), 'password');
+    await userEvent.click(screen.getByLabelText('Remember me'));
+
+    jest.spyOn(userService, 'login').mockResolvedValueOnce({ data: {} });
+    await userEvent.click(screen.getByText('Login'));
+    expect(login).toBeCalledWith('admin', 'password', true);
   });
 });

@@ -15,14 +15,6 @@ const Login: NextPage = () => {
     formState: { errors },
   } = useForm();
 
-  register('username', {
-    required: true,
-  });
-  register('password', {
-    required: true,
-  });
-  register('remember');
-
   const onSubmit: SubmitHandler<FieldValues> = async ({ username, password, remember }) => {
     try {
       const response = await login(username, password, remember);
@@ -47,7 +39,14 @@ const Login: NextPage = () => {
                 <h2 className="mb-4 font-bold text-center">Welcome</h2>
                 <label htmlFor="username" className="flex flex-col">
                   Username
-                  <input type="text" id="username" {...register('username')} autoComplete="false" />
+                  <input
+                    type="text"
+                    id="username"
+                    {...register('username', {
+                      required: true,
+                    })}
+                    autoComplete="false"
+                  />
                   {errors.username && <p>Username is required.</p>}
                 </label>
                 <label htmlFor="password" className="flex flex-col">
@@ -55,13 +54,19 @@ const Login: NextPage = () => {
                   <input
                     type="password"
                     id="password"
-                    {...register('password')}
+                    {...register('password', {
+                      required: true,
+                    })}
                     autoComplete="false"
                   />
                   {errors.password && <p>Password is required.</p>}
                 </label>
                 <label htmlFor="remember" className="flex flex-row gap-3">
-                  <input type="checkbox" id="remember" {...register('remember')} />
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    {...register('remember', { required: false })}
+                  />
                   Remember me
                 </label>
                 <button
