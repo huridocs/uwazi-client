@@ -20,9 +20,14 @@ const Login: NextPage = () => {
 
   const onSubmitLogin: SubmitHandler<FieldValues> = async ({ username, password, remember }) => {
     const response = await login(username, password, remember);
+
     if (!response.error) {
-      return router.push(router.query.from || '/library/cards');
+      const refererUrl = Array.isArray(router.query.from)
+        ? router.query.from[0]
+        : router.query.from;
+      return router.push(refererUrl ? encodeURI(refererUrl) : '/library/cards');
     }
+
     setLoginError(response.error);
   };
 
