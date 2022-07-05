@@ -5,8 +5,8 @@ type ServiceResponse = {
   };
 };
 
-const login = async (username: string, password: string): Promise<ServiceResponse> =>
-  Promise.resolve({ data: { username, password } });
+const login = async (username: string, password: string, rembember:boolean): Promise<ServiceResponse> =>
+  Promise.resolve({ data: { username, password, rembember } });
 
 export type { ServiceResponse };
 export { login };
