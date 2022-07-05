@@ -28,9 +28,12 @@ describe('login', () => {
   });
 
   it('should allow users to login', async () => {
-    await userEvent.type(screen.getByLabelText('Username'), 'admin');
-    await userEvent.type(screen.getByLabelText('Password'), 'password');
-    await userEvent.click(screen.getByText('Login'));
+    await act(async () => {
+      await userEvent.type(screen.getByLabelText('Username'), 'admin');
+      await userEvent.type(screen.getByLabelText('Password'), 'password');
+      await userEvent.click(screen.getByText('Login'));
+    });
+
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith('/library/cards');
   });
@@ -40,9 +43,9 @@ describe('login', () => {
     ${'admin'} | ${''}         | ${'Password is required.'}
     ${''}      | ${'password'} | ${'Username is required.'}
   `('should not login when there is an error', async ({ username, password, errorMessage }) => {
-    username && (await userEvent.type(screen.getByLabelText('Username'), username));
-    password && (await userEvent.type(screen.getByLabelText('Password'), password));
     await act(async () => {
+      username && (await userEvent.type(screen.getByLabelText('Username'), username));
+      password && (await userEvent.type(screen.getByLabelText('Password'), password));
       await userEvent.click(screen.getByText('Login'));
     });
 
@@ -51,35 +54,42 @@ describe('login', () => {
   });
 
   it('should show an error message when login fails', async () => {
-    await userEvent.type(screen.getByLabelText('Username'), 'admin');
-    await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
-    await userEvent.click(screen.getByLabelText('Remember me'));
     jest.spyOn(userService, 'login').mockRejectedValueOnce({ error: { code: 'invalid_login' } });
 
     await act(async () => {
+      await userEvent.type(screen.getByLabelText('Username'), 'admin');
+      await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
+      await userEvent.click(screen.getByLabelText('Remember me'));
       await userEvent.click(screen.getByText('Login'));
     });
+
     expect(screen.getByText('Login failed')).toBeInTheDocument();
   });
 
   it('should redirect users to the previous unauthorized page after a successful login', async () => {
     queryParams.from = '/settings/account';
-    await userEvent.type(screen.getByLabelText('Username'), 'admin');
-    await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
     const loginButton = screen.getByText('Login');
-    await userEvent.click(loginButton);
+
+    await act(async () => {
+      await userEvent.type(screen.getByLabelText('Username'), 'admin');
+      await userEvent.type(screen.getByLabelText('Password'), 'invalidPassword');
+      await userEvent.click(loginButton);
+    });
 
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith('/settings/account');
   });
 
   it('should allow to remember credentials', async () => {
-    await userEvent.type(screen.getByLabelText('Username'), 'admin');
-    await userEvent.type(screen.getByLabelText('Password'), 'password');
-    await userEvent.click(screen.getByLabelText('Remember me'));
-
     jest.spyOn(userService, 'login').mockResolvedValueOnce({ data: {} });
-    await userEvent.click(screen.getByText('Login'));
+
+    await act(async () => {
+      await userEvent.type(screen.getByLabelText('Username'), 'admin');
+      await userEvent.type(screen.getByLabelText('Password'), 'password');
+      await userEvent.click(screen.getByLabelText('Remember me'));
+      await userEvent.click(screen.getByText('Login'));
+    });
+
     expect(login).toBeCalledWith('admin', 'password', true);
   });
 });
