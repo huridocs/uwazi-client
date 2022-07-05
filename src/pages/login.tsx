@@ -71,11 +71,7 @@ const Login: NextPage = () => {
                   {errors.password && <p>Password is required.</p>}
                 </label>
                 <label htmlFor="remember" className="remember flex flex-row gap-3">
-                  <input
-                    type="checkbox"
-                    id="remember"
-                    {...register('remember', { required: false })}
-                  />
+                  <input type="checkbox" id="remember" {...register('remember')} />
                   Remember me
                 </label>
                 <button

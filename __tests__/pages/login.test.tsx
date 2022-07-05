@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from 'pages/login';
 import * as userService from 'services/user';
 import { login } from 'services/user';
-import { act } from 'react-dom/test-utils';
 
 const mockPush = jest.fn();
 const queryParams = { from: '' };
