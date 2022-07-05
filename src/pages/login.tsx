@@ -38,6 +38,10 @@ const Login: NextPage = () => {
           />
         </div>
         <div className="form w-1/2">
+          <div className="title flex">
+            <Image src="/uwazi-icon.svg" alt="UWAZI logo" height="60px" width="44px" />
+            <h1 className="text-xl font-bold text-rose-700">UWAZI</h1>
+          </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="fields flex flex-col p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md">
               <>
