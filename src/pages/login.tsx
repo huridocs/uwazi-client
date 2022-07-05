@@ -27,17 +27,22 @@ const Login: NextPage = () => {
   };
 
   return (
-    <section className="h-screen">
-      <div className="flex">
-        <div className="invisible md:visible">
-          <Image src="/loginPicture.jpg" alt="login" width="600" height="400" />
+    <section>
+      <div className="login-container flex min-h-screen">
+        <div className="image hidden md:block relative w-1/2">
+          <Image
+            src="/loginPicture.jpg"
+            alt="UWAZI image presentation"
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
-        <div className="w-80">
+        <div className="form w-1/2">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md">
+            <div className="fields flex flex-col p-4 m-4 bg-white border rounded-md border-neutral-300 hover:border-neutral-500 hover:shadow-md">
               <>
                 <h2 className="mb-4 font-bold text-center">Welcome</h2>
-                <label htmlFor="username" className="flex flex-col">
+                <label htmlFor="username" className="username flex flex-col">
                   Username
                   <input
                     type="text"
@@ -49,7 +54,7 @@ const Login: NextPage = () => {
                   />
                   {errors.username && <p>Username is required.</p>}
                 </label>
-                <label htmlFor="password" className="flex flex-col">
+                <label htmlFor="password" className="password flex flex-col">
                   Password
                   <input
                     type="password"
@@ -61,7 +66,7 @@ const Login: NextPage = () => {
                   />
                   {errors.password && <p>Password is required.</p>}
                 </label>
-                <label htmlFor="remember" className="flex flex-row gap-3">
+                <label htmlFor="remember" className="remember flex flex-row gap-3">
                   <input
                     type="checkbox"
                     id="remember"
