@@ -9,6 +9,8 @@
     "plugin:cypress/recommended"
   ],
 
+  "parser": "@typescript-eslint/parser",
+
   "plugins": ["jsx-a11y"],
 
   "env": {
