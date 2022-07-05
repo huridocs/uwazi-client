@@ -2,6 +2,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { AcademicCapIcon } from '@heroicons/react/solid';
 
 const Home: NextPage = () => (
   <>
@@ -11,6 +12,7 @@ const Home: NextPage = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <h1 className="text-3xl font-bold underline">Hello uwazi!</h1>
+    <AcademicCapIcon className="h-10 w-10 text-blue-500" />
     <Link href="/library/cards">Cards</Link>
   </>
 );
