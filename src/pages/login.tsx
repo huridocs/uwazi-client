@@ -18,8 +18,8 @@ const Login: NextPage = () => {
   const [recoveringPassword, setRecoveringPassword] = useState(false);
   const [recoveredPassword, setRecoveredPassword] = useState(false);
 
-  const onSubmitLogin: SubmitHandler<FieldValues> = async ({ username, password, remember }) => {
-    const response = await login(username, password, remember);
+  const onSubmitLogin: SubmitHandler<FieldValues> = async ({ username, password, _remember }) => {
+    const response = await login(username, password);
 
     if (!response.error) {
       const refererUrl = Array.isArray(router.query.from)

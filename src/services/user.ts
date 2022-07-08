@@ -1,3 +1,5 @@
+import { api } from 'api';
+
 type ServiceResponse = {
   data: unknown;
   error?: {
@@ -5,13 +7,15 @@ type ServiceResponse = {
   };
 };
 
-const login = async (
-  username: string,
-  password: string,
-  rembember: boolean
-): Promise<ServiceResponse> => Promise.resolve({ data: { username, password, rembember } });
+const login = async (username: string, password: string): Promise<ServiceResponse> => {
+  const resp = await api.post('login', { username, password });
+  if (resp.error) {
+    return Promise.resolve({ data: {}, error: { code: '401' } });
+  }
+  return Promise.resolve({ data: resp });
+};
 
-const recoverPassword = async (email: string): Promise<ServiceResponse> =>
+const recoverPassword = async (_email: string): Promise<ServiceResponse> =>
   Promise.resolve({ data: true });
 
 export type { ServiceResponse };
