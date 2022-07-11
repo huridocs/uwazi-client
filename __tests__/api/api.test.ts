@@ -18,10 +18,10 @@ describe('api', () => {
 
   describe('get', () => {
     it('should use the domain name', () => {
-      jest
-        .spyOn(config, 'default')
-        .mockReturnValue({ publicRuntimeConfig: { NODE_ENV: 'production' } });
-      api.get('localhost:8080', 'search');
+      jest.spyOn(config, 'default').mockReturnValue({
+        publicRuntimeConfig: { NODE_ENV: 'production', HOST: 'localhost:8080' },
+      });
+      api.get('search');
       expect(global.fetch).toHaveBeenCalledWith('https://localhost:8080/api/search', {
         method: 'GET',
       });
@@ -32,8 +32,8 @@ describe('api', () => {
     it('should append the port', () => {
       jest
         .spyOn(config, 'default')
-        .mockReturnValue({ publicRuntimeConfig: { NODE_ENV: 'development' } });
-      api.get('localhost', 'search');
+        .mockReturnValue({ publicRuntimeConfig: { NODE_ENV: 'development', HOST: 'localhost' } });
+      api.get('search');
       expect(global.fetch).toHaveBeenCalledWith('http://localhost:3000/api/search', {
         method: 'GET',
       });
