@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   publicRuntimeConfig: {
     NODE_ENV: process.env.NODE_ENV,
-    HOST: process.env.HOST || 'localhost',
+    API_HOST: process.env.API_HOST || 'localhost',
   },
   experimental: {
     newNextLinkBehavior: true,
