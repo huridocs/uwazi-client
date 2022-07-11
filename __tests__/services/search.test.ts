@@ -6,7 +6,7 @@ import { entities } from '../commonFixtures/entities';
 describe('search', () => {
   beforeEach(() => {
     const apiGetSpy = jest.spyOn(api, 'get');
-    apiGetSpy.mockImplementation(async (_domain, url) => {
+    apiGetSpy.mockImplementation(async url => {
       switch (url) {
         case 'search':
           return { rows: backendFixtures.entities };
@@ -17,7 +17,7 @@ describe('search', () => {
   });
 
   it('should fetch and parse the search endpoint', async () => {
-    const results = await search('domain');
+    const results = await search();
     expect(results).toEqual({ rows: entities });
   });
 });

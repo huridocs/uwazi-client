@@ -41,8 +41,8 @@ const formatMetadata = (template: Template, entity: BackendEntity) =>
     return newMetadata;
   }, [] as Property[]);
 
-const populateEntities = async (rawEntities: BackendEntity[], domain: string) => {
-  const templates: Template[] = (await api.get(domain, 'templates')).rows;
+const populateEntities = async (rawEntities: BackendEntity[]) => {
+  const templates: Template[] = (await api.get('templates')).rows;
 
   const rows = rawEntities
     .map(rawEntity => {
@@ -60,9 +60,9 @@ const populateEntities = async (rawEntities: BackendEntity[], domain: string) =>
   return rows;
 };
 
-const search = async (domain: string): Promise<SearchResults> => {
-  const resp = await api.get(domain, 'search');
-  const processedRows = await populateEntities(resp.rows, domain);
+const search = async (): Promise<SearchResults> => {
+  const resp = await api.get('search');
+  const processedRows = await populateEntities(resp.rows);
   return { ...resp, rows: processedRows };
 };
 
